@@ -2,6 +2,7 @@ import "./App.css";
 import TaskForm from "./TaskForm";
 import Task from "./Task";
 import { useEffect, useState } from "react";
+import DateTime from "./DateTime";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -47,7 +48,7 @@ function App() {
     if (percentage === 100) {
       return "Nice job for today! 🏝";
     }
-    return "Keep it going 💪🏻";
+    return "The future depends on what you do today.";
   }
 
   function renameTask(index, newName) {
@@ -60,19 +61,28 @@ function App() {
 
   return (
     <main>
-      <h1>
-        {numberComplete}/{numberTotal} Complete
-      </h1>
-      <h2>{getMessage()}</h2>
-      <TaskForm onAdd={addTask} />
-      {tasks.map((task, index) => (
-        <Task
-          {...task}
-          onRename={(newName) => renameTask(index, newName)}
-          onTrash={() => removeTask(index)}
-          onToggle={(done) => updateTaskDone(index, done)}
-        />
-      ))}
+      <div className="container">
+        <div className="datetime-container">
+          <div className="message">
+            <h1>
+              {numberComplete}/{numberTotal} Complete
+            </h1>
+            <h2>{getMessage()}</h2>
+          </div>
+          <div className="date-time">
+            <DateTime />
+          </div>
+        </div>
+        <TaskForm onAdd={addTask} />
+        {tasks.map((task, index) => (
+          <Task
+            {...task}
+            onRename={(newName) => renameTask(index, newName)}
+            onTrash={() => removeTask(index)}
+            onToggle={(done) => updateTaskDone(index, done)}
+          />
+        ))}
+      </div>
     </main>
   );
 }
