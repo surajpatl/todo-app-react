@@ -1,8 +1,21 @@
-export default function TaskForm() {
+import { useState } from "react";
+
+export default function TaskForm({ onAdd }) {
+  const [taskName, setTaskName] = useState("");
+  function handleSubmit(ev) {
+    ev.preventDefault();
+    onAdd(taskName);
+    setTaskName("");
+  }
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <button>+</button>
-      <input type="text" placeholder="Enter Your Task..." />
+      <input
+        type="text"
+        value={taskName}
+        onChange={(ev) => setTaskName(ev.target.value)}
+        placeholder="Enter Your Task..."
+      />
     </form>
   );
 }
